@@ -11,3 +11,88 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+#title {
+  font-size: 20pt;
+}
+
+#file-list {
+  margin-top: 10px;
+}
+
+#display-image {
+  visibility: hidden;
+}
+
+#curr-directory {
+  font-size: 16pt;
+  font-weight: bold;
+  padding-left: 40px;
+}
+
+.file-entry {
+  font-size: 13pt;
+  margin: 0px 20px 0px 5px;
+  padding: 3px;
+}
+
+.file-entry:hover {
+  background-color: lightgray;
+  cursor: pointer;
+}
+
+.selected {
+  background-color: lightblue;
+}
+
+.control-button {
+  margin: 0 5px 10px 5px;
+}
+
+.button-container {
+  text-align: center;
+}
+
+/* Split the screen in half */
+.split {
+  height: 85%;
+  position: fixed;
+  z-index: 1;
+  top: 8%;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+
+/* Control the left side */
+.left {
+  width: 20%;
+  left: 0;
+}
+
+
+.over-layer {
+  z-index: 1;
+}
+
+
+/* Control the right side */
+.right {
+  right: 0;
+  width: 80%;
+}
+
+/* If you want the content centered horizontally and vertically */
+.centered {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  text-align: center;
+  width: 90%;
+}
+
+
+/* Style the image inside the centered container, if needed */
+.centered img {
+  width: 100%;
+}
