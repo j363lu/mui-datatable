@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import '../index.css';
 import $ from 'jquery';
-import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { ScatterChart, Scatter, XAxis, YAxis, ZAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 const tooltipWrapperStyle = { 
   "background-color": "rgba(255, 255, 255, 0.8)",
@@ -72,7 +72,7 @@ function ScatterPlot(props) {
 
   return (
     <>
-      <button type="button" className='btn btn-primary' data-bs-toggle="modal" data-bs-target="#scatterplotModal">
+      <button type="button" id="scatterplotButton" className='btn btn-primary' data-bs-toggle="modal" data-bs-target="#scatterplotModal">
         Scatter Plot
       </button>
 
@@ -108,6 +108,7 @@ function ScatterPlot(props) {
                   <CartesianGrid />
                   <XAxis type="number" dataKey={x} name={x} domain={['dataMin', 'dataMax']} />
                   <YAxis type="number" dataKey={y} name={y} domain={['dataMin', 'dataMax']} />
+                  <ZAxis type="number" range={[15, 15]} />
                   <Tooltip content={customizedToolTip} wrapperStyle={tooltipWrapperStyle} />
                   <Scatter data={props.data} fill="#8884d8" />
                 </ScatterChart>

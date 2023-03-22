@@ -122,7 +122,6 @@ function FileExplorer() {
         <ScatterPlot data={data} columns={columns} />
       </div>
 
-      <hr/>
 
       <div className="page-content">
         <div className="split left">
