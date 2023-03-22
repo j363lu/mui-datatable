@@ -72,7 +72,7 @@ function ScatterPlot(props) {
 
   return (
     <>
-      <button type="button" id="scatterplotButton" className='btn btn-primary' data-bs-toggle="modal" data-bs-target="#scatterplotModal">
+      <button type="button" className='btn btn-primary' data-bs-toggle="modal" data-bs-target="#scatterplotModal">
         Scatter Plot
       </button>
 
