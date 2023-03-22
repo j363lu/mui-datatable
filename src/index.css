@@ -96,3 +96,12 @@ code {
 .centered img {
   width: 100%;
 }
+
+/* div.modal-content {
+  height: 80%;
+}
+
+div.modal-body {
+  max-height: calc(100vh - 143px);
+  overflow-y: auto;
+} */
