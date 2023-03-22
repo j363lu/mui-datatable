@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../index.css';
 import $ from 'jquery';
 import MUIDataTable from "mui-datatables";
+import ScatterPlot from './ScatterPlot';
 const csv  = $.csv = require('jquery-csv');
 
 
@@ -85,7 +86,18 @@ function FileExplorer() {
 
     $.get(path, (csvData) => {
       setTitle(file)
-      const d = $.csv.toObjects(csvData)
+      let d = $.csv.toObjects(csvData)
+
+      // convert string to number if applicable
+      for (let i = 0; i < d.length; ++i) {
+        for (let c of Object.keys(d[0])) {
+          if (isNaN(d[i][c])) {
+            continue;
+          }
+          d[i][c] = Number(d[i][c]);
+        }
+      }
+
       console.log(d)
       setData(d)
       setColumns(Object.keys(d[0]))
@@ -106,6 +118,7 @@ function FileExplorer() {
     <>
       <div className="page-title">
         <span id="title">CSV Viewer</span><span id="curr-directory"></span>
+        <ScatterPlot data={data} columns={columns} />
       </div>
 
       <hr/>
