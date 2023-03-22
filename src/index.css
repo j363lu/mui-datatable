@@ -97,11 +97,9 @@ code {
   width: 100%;
 }
 
-/* div.modal-content {
-  height: 80%;
+
+div.page-title {
+  margin: 0px;
+  padding: 0px 12px 0px 12px;
 }
 
-div.modal-body {
-  max-height: calc(100vh - 143px);
-  overflow-y: auto;
-} */
