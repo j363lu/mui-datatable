@@ -91,10 +91,16 @@ function FileExplorer() {
       // convert string to number if applicable
       for (let i = 0; i < d.length; ++i) {
         for (let c of Object.keys(d[0])) {
-          if (isNaN(d[i][c])) {
+          let val = d[i][c];
+          if (isNaN(val)) {
             continue;
           }
-          d[i][c] = Number(d[i][c]);
+
+          if (Number.isInteger(Number(val))) {
+            d[i][c] = Number(val);
+          } else {
+            d[i][c] = Number(val).toFixed(2);
+          }
         }
       }
 
