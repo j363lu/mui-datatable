@@ -22,7 +22,7 @@ function FileExplorer() {
         enabled: true,
         transitionTime: 80
     },
-    rowsPerPage: 100,
+    rowsPerPage: 50,
     rowsPerPageOptions: [50, 100, 200, data.length],
     tableBodyHeight:'1200px',
 });
@@ -84,14 +84,16 @@ function FileExplorer() {
   function readCSV(file) {
     const path = base_path + dir + file;
 
-    $.get(path, (csvData) => {
+    //$.get(path, (csvData) => {
+    // disable cache so that when csv are updated on aqua99, csv-viewer will not use the cached version
+    $.ajax({url: path, cache: false, success: (csvData) => {
       setTitle(file)
       let d = $.csv.toObjects(csvData)
 
       // convert string to number if applicable
       for (let i = 0; i < d.length; ++i) {
         for (let c of Object.keys(d[0])) {
-          let val = d[i][c];
+          let val = d[i][c];     
           if (isNaN(val)) {
             continue;
           }
@@ -99,15 +101,16 @@ function FileExplorer() {
           if (Number.isInteger(Number(val))) {
             d[i][c] = Number(val);
           } else {
-            d[i][c] = Number(val).toFixed(2);
+            d[i][c] = Number(Number(val).toFixed(2));
           }
         }
       }
 
+      console.log("CSV data:")
       console.log(d)
       setData(d)
       setColumns(Object.keys(d[0]))
-    })
+    }})
 
   }
 
