@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../index.css';
 import $ from 'jquery';
 import MUIDataTable from "mui-datatables";
-import ScatterPlot from './ScatterPlot';
+import Plot from './Plot';
 const csv  = $.csv = require('jquery-csv');
 
 
@@ -127,7 +127,7 @@ function FileExplorer() {
     <>
       <div className="page-title">
         <span id="title">CSV Viewer</span><span id="curr-directory"></span>
-        <ScatterPlot data={data} columns={columns} />
+        <Plot data={data} columns={columns} />
       </div>
 
       <hr/>
