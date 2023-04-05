@@ -1,3 +1,5 @@
+// This component is for customizing the show column button in the mui-datatable
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import Checkbox from '@mui/material/Checkbox';
@@ -48,10 +50,10 @@ const TableViewCol = ({ columns, options, components = {}, onColumnUpdate, updat
     onColumnUpdate(index);
   };
 
-  const selectAll = () => {
+  const deSelectAll = () => {
     var newColumns = columns.map(col => {
       var newCol = Object.assign({}, col);
-      newCol.display = 'true';
+      newCol.display = 'false';
       return newCol;
     });
     updateColumns(newColumns);
@@ -63,7 +65,7 @@ const TableViewCol = ({ columns, options, components = {}, onColumnUpdate, updat
         {textLabels.title}
       </Typography>
       <FormGroup className={classes.formGroup}>
-        <Button onClick={selectAll}>Show All</Button>
+        <Button onClick={deSelectAll}>Deselect All</Button>
         {columns.map((column, index) => {
           return (
             column.display !== 'excluded' &&

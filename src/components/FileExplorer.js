@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../index.css';
 import $ from 'jquery';
 import MUIDataTable from "mui-datatables";
+import TableViewCol from './TableViewCol';
 import Plot from './Plot';
 const csv  = $.csv = require('jquery-csv');
 
@@ -141,7 +142,10 @@ function FileExplorer() {
     
         <div className="split right">
           <div id="data-container">
-            <MUIDataTable title={title} data={data} columns={columns} options={options} />
+            <MUIDataTable title={title} data={data} columns={columns} options={options}
+                          components={{
+                            TableViewCol: TableViewCol
+                          }} />
           </div>
         </div>
       </div>    
