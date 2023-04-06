@@ -2,18 +2,21 @@ import React, { useState, useEffect } from 'react';
 import '../index.css';
 import $ from 'jquery';
 import MUIDataTable from "mui-datatables";
+import DisplayTXT from './DisplayTXT';
 import TableViewCol from './TableViewCol';
 import Plot from './Plot';
 const csv  = $.csv = require('jquery-csv');
 
 
 function FileExplorer() {
-  const supported_types = ["/", ".csv"];
+  const supported_types = ["/", ".csv", ".txt"];
   const base_path = "https://metrics.syn.uwaterloo.ca";
 
   const [dir, setDir] = useState("/");
   const [title, setTitle] = useState("");
   const [data, setData] = useState([]);
+  const [txt, setTxt] = useState("");
+  const [txtTitle, setTxtTitle] = useState("");
   const [columns, setColumns] = useState([]);
   const [options, setOptions] = useState({
     filter: true,
@@ -77,6 +80,12 @@ function FileExplorer() {
           file_entry.addEventListener("click", function() {
             readCSV(this.innerText)
           })
+        } else if (filename.endsWith(".txt")) { 
+          file_entry.addEventListener("click", function() {
+            readTXT(this.innerText)
+          })
+          file_entry.setAttribute("data-bs-toggle", "modal");
+          file_entry.setAttribute("data-bs-target", "#txtModal");
         }
       }
     }, "html")
@@ -112,7 +121,15 @@ function FileExplorer() {
       setData(d)
       setColumns(Object.keys(d[0]))
     }})
+  }
 
+  function readTXT(file) {
+    const path = base_path + dir + file;
+
+    $.ajax({url: path, cache: false, success: (txtData) => {
+      setTxt(txtData);
+      setTxtTitle(file);
+    }})    
   }
 
   function isSupportedFileType(filename) {
@@ -126,6 +143,7 @@ function FileExplorer() {
 
   return (
     <>
+      <DisplayTXT txt={txt} txtTitle={txtTitle} />
       <div className="page-title">
         <span id="title">CSV Viewer</span><span id="curr-directory"></span>
         <Plot data={data} columns={columns} />

@@ -10,7 +10,7 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { makeStyles } from 'tss-react/mui';
 
-const useStyles = makeStyles({ name: 'MUIDataTableViewCol' })(theme => ({
+const style = {
   root: {
     padding: '16px 24px 16px 24px',
     fontFamily: 'Roboto',
@@ -19,7 +19,6 @@ const useStyles = makeStyles({ name: 'MUIDataTableViewCol' })(theme => ({
     marginLeft: '-7px',
     marginRight: '24px',
     fontSize: '14px',
-    color: theme.palette.text.secondary,
     textAlign: 'left',
     fontWeight: 500,
   },
@@ -37,12 +36,10 @@ const useStyles = makeStyles({ name: 'MUIDataTableViewCol' })(theme => ({
   label: {
     fontSize: '15px',
     marginLeft: '8px',
-    color: theme.palette.text.primary,
   },
-}));
+};
 
 const TableViewCol = ({ columns, options, components = {}, onColumnUpdate, updateColumns }) => {
-  const { classes } = useStyles();
   const textLabels = options.textLabels.viewColumns;
   const CheckboxComponent = components.Checkbox || Checkbox;
 
@@ -59,12 +56,23 @@ const TableViewCol = ({ columns, options, components = {}, onColumnUpdate, updat
     updateColumns(newColumns);
   };
 
+  const selectAll = () => {
+    var newColumns = columns.map(col => {
+      var newCol = Object.assign({}, col);
+      newCol.display = 'true';
+      return newCol;
+    });
+    updateColumns(newColumns);
+  };
+
+
   return (
-    <FormControl component={'fieldset'} className={classes.root} aria-label={textLabels.titleAria}>
-      <Typography variant="caption" className={classes.title}>
+    <FormControl component={'fieldset'} sx={style.root} aria-label={textLabels.titleAria}>
+      <Typography variant="caption" sx={style.title}>
         {textLabels.title}
       </Typography>
-      <FormGroup className={classes.formGroup}>
+      <FormGroup sx={style.formGroup}>
+        <Button onClick={selectAll}>Select All</Button>
         <Button onClick={deSelectAll}>Deselect All</Button>
         {columns.map((column, index) => {
           return (
@@ -72,17 +80,17 @@ const TableViewCol = ({ columns, options, components = {}, onColumnUpdate, updat
             column.viewColumns !== false && (
               <FormControlLabel
                 key={index}
-                classes={{
-                  root: classes.formControl,
-                  label: classes.label,
+                sx={{
+                  root: style.formControl,
+                  label: style.label,
                 }}
                 control={
                   <CheckboxComponent
                     color="primary"
-                    className={classes.checkbox}
+                    sx={style.checkbox}
                     classes={{
-                      root: classes.checkboxRoot,
-                      checked: classes.checked,
+                      root: style.checkboxRoot,
+                      checked: style.checked,
                     }}
                     onChange={() => handleColChange(index)}
                     checked={column.display === 'true'}
