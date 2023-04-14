@@ -1,7 +1,4 @@
-This is a csv-viewer implemented by React.
-
-It is deployed on https://metrics.syn.uwaterloo.ca/csv-viewer/
-
+This is a csv-viewer implemented by React. It is deployed on https://metrics.syn.uwaterloo.ca/csv-viewer/
 This application uses mui-datatable and recharts. The documentation can be found here:
 
 https://recharts.org/en-US/guide
