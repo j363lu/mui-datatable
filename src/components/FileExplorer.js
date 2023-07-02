@@ -119,6 +119,7 @@ function FileExplorer() {
       console.log("CSV data:")
       console.log(d)
       setData(d)
+      setOptions({...options, rowsPerPageOptions: [50, 100, 200, d.length]})
       setColumns(Object.keys(d[0]))
     }})
   }

@@ -12,6 +12,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "bootstrap": "^5.2.3",
+    "calculate-correlation": "^1.2.3",
     "cumulative-distribution-function": "^2.1.1",
     "fs": "^0.0.1-security",
     "jquery": "^3.6.3",

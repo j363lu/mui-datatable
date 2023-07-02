@@ -16,7 +16,7 @@ function DisplayTXT(props) {
               if (i === "") {
                 return <br></br>;
               }
-              return <pre key={key}>{i}</pre>;
+              return <div key={key} style={{margin: "0px"}}>{i}</div>;
             })}
           </div>
 

@@ -1,10 +1,14 @@
+// documentation for recharts: https://recharts.org/en-US/guide
+
 import React, { useState, useEffect } from 'react';
 import '../index.css';
 import { ScatterChart, Scatter, XAxis, YAxis, ZAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+const calculateCorrelation = require("calculate-correlation");
 
 function ScatterPlot(props) {
-  const [x, setX] = useState("avgTOI");
-  const [y, setY] = useState("avgBTT");
+  const [x, setX] = useState("");
+  const [y, setY] = useState("");
+  const [correlation, setCorrelation] = useState("NaN");
 
   // The tooltip style when you hover your mouse on points
   const tooltipWrapperStyle = { 
@@ -16,10 +20,44 @@ function ScatterPlot(props) {
 
   const x_axis_change = (event) => {
     setX(event.target.value);
+    const d = getXYData(event.target.value, y);
+    updateCorrelation(d["x"], d["y"])
   }
 
   const y_axis_change = (event) => {
     setY(event.target.value);
+    const d = getXYData(x, event.target.value);
+    updateCorrelation(d["x"], d["y"])
+  }
+
+  // given a column name, returns an array of data of that column 
+  const getXYData = (xCol, yCol) => {
+    if (!xCol || !yCol) {
+      return {}
+    }
+    const xResult = []
+    const yResult = []
+    for (let row of props.data) {
+      const x_val = row[xCol]
+      const y_val = row[yCol]
+      if (x_val === 'nan' || y_val === 'nan') {
+        continue
+      }
+      xResult.push(x_val)
+      yResult.push(y_val)
+    }
+    return {x: xResult, y: yResult}
+  }
+
+  const updateCorrelation = (a, b) => {
+    console.log(a)
+    console.log(b)
+    if (!a || !b) {
+      return
+    }
+    const cor = calculateCorrelation(a, b)
+    setCorrelation(cor)
+    console.log(`Correlation coefficient: ${cor}`)
   }
 
   // payload is an array of two objects [x, y]
@@ -52,6 +90,7 @@ function ScatterPlot(props) {
   return (
     <>
       <div className="container">
+        <div>Correlation coefficient: {correlation}</div>
         <div className="row">
           <form className="col-2 offset-2">
             <label for="x-axis">x-axis: </label>
